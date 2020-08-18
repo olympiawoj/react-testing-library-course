@@ -1,33 +1,32 @@
 import React from 'react'
 import {render} from '@testing-library/react'
-import {axe} from 'jest-axe'
+import {axe, toHaveNoViolations} from 'jest-axe' // specific assertion
+import 'jest-axe/extend-expect' //extension happens automatically
 
-function InaccessibleForm() {
-  return (
-    <form>
-      <input placeholder="email" />
-    </form>
-  )
-}
+// expect.extend(toHaveNoViolations)
+
+// input is not labeled
+// function InaccessibleForm() {
+//   return (
+//     <form>
+//       <input placeholder="email" />
+//     </form>
+//   )
+// }
 
 function AccessibleForm() {
   return (
     <form>
-      <label htmlFor="username">Username</label>
-      <input id="username" placeholder="username" />
+      <label htmlFor="email">Email</label>
+      <input id="email" placeholder="email" />
     </form>
   )
 }
 
-test('inaccessible forms fail axe', async () => {
-  const {container} = render(<InaccessibleForm />)
-  // NOTE: I can't think of a situation where you'd want to test that some HTML
-  // actually _does_ have accessibility issues... This is only here for
-  // demonstration purposes.
-  expect(await axe(container)).not.toHaveNoViolations()
-})
-
-test('accessible forms pass axe', async () => {
+test('the form is accessible', async () => {
   const {container} = render(<AccessibleForm />)
-  expect(await axe(container)).toHaveNoViolations()
+  // console.log(container.innerHTML)
+  const results = await axe(container) //async function, returns a promise, pass in container DOM node to axe
+  // console.log(results)
+  expect(results).toHaveNoViolations()
 })
