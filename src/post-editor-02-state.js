@@ -2,8 +2,9 @@ import React from 'react'
 
 function Editor() {
   const [isSaving, setIsSaving] = React.useState(false)
+
   function handleSubmit(e) {
-    e.preventDefault()
+    e.preventDefault() // prevent full page refresh
     setIsSaving(true)
   }
   return (
