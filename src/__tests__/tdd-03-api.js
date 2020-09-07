@@ -1,16 +1,52 @@
-import React from 'react'
-import {render, fireEvent} from '@testing-library/react'
+// import React from 'react'
+// import {render, fireEvent} from '@testing-library/react'
+// import {savePost as mockSavePost} from '../api'
+// import {Editor} from '../post-editor-03-api'
+
+// jest.mock('../api')
+
+// afterEach(() => {
+//   jest.clearAllMocks()
+// })
+
+// test('renders a form with title, content, tags, and a submit button', () => {
+//   mockSavePost.mockResolvedValueOnce()
+//   const fakeUser = {id: 'user-1'}
+//   const {getByLabelText, getByText} = render(<Editor user={fakeUser} />)
+//   const fakePost = {
+//     title: 'Test Title',
+//     content: 'Test content',
+//     tags: ['tag1', 'tag2'],
+//   }
+//   getByLabelText(/title/i).value = fakePost.title
+//   getByLabelText(/content/i).value = fakePost.content
+//   getByLabelText(/tags/i).value = fakePost.tags.join(', ')
+//   const submitButton = getByText(/submit/i)
+
+//   fireEvent.click(submitButton)
+
+//   expect(submitButton).toBeDisabled()
+
+//   expect(mockSavePost).toHaveBeenCalledWith({
+//     ...fakePost,
+//     authorId: fakeUser.id,
+//   })
+//   expect(mockSavePost).toHaveBeenCalledTimes(1)
+// })
+
+import React from 'react' // need React to create the Editor element
+import {render, fireEvent} from '@testing-library/react' // to render the Editor element
 import {savePost as mockSavePost} from '../api'
-import {Editor} from '../post-editor-03-api'
+import {Editor} from '../post-editor-03-api' // import the Editor element
 
 jest.mock('../api')
 
 afterEach(() => {
-  jest.clearAllMocks()
+  jest.clearAllMocks() // all mocks called are cleared between every test so tests remain isolated
 })
 
 test('renders a form with title, content, tags, and a submit button', () => {
-  mockSavePost.mockResolvedValueOnce()
+  mockSavePost.mockResolvedValueOnce() // returning a promise that resolves
   const fakeUser = {id: 'user-1'}
   const {getByLabelText, getByText} = render(<Editor user={fakeUser} />)
   const fakePost = {
@@ -20,16 +56,13 @@ test('renders a form with title, content, tags, and a submit button', () => {
   }
   getByLabelText(/title/i).value = fakePost.title
   getByLabelText(/content/i).value = fakePost.content
-  getByLabelText(/tags/i).value = fakePost.tags.join(', ')
+  getByLabelText(/tags/i).value = fakePost.tags.join(',')
   const submitButton = getByText(/submit/i)
-
   fireEvent.click(submitButton)
-
   expect(submitButton).toBeDisabled()
-
   expect(mockSavePost).toHaveBeenCalledWith({
     ...fakePost,
     authorId: fakeUser.id,
-  })
+  }) // post data
   expect(mockSavePost).toHaveBeenCalledTimes(1)
 })
