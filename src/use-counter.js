@@ -7,4 +7,5 @@ function useCounter({initialCount = 0, step = 1} = {}) {
   return {count, increment, decrement}
 }
 
+// custom hook used in MANY apps
 export {useCounter}
