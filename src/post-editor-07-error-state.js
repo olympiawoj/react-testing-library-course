@@ -5,7 +5,7 @@ import {savePost} from './api'
 function Editor({user}) {
   const [isSaving, setIsSaving] = React.useState(false)
   const [redirect, setRedirect] = React.useState(false)
-  const [error, setError] = React.useState(null)
+  const [error, setError] = React.useState(null) // error state management
   function handleSubmit(e) {
     e.preventDefault()
     const {title, content, tags} = e.target.elements
@@ -17,8 +17,11 @@ function Editor({user}) {
       authorId: user.id,
     }
     setIsSaving(true)
+    // handle rejection
     savePost(newPost).then(
       () => setRedirect(true),
+      // if promise is rejected..
+      // set error state and set saving state to false
       response => {
         setIsSaving(false)
         setError(response.data.error)
