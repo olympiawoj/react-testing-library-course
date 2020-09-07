@@ -12,7 +12,7 @@ function Editor({user}) {
       title: title.value,
       content: content.value,
       tags: tags.value.split(',').map(t => t.trim()),
-      date: new Date().toISOString(),
+      date: new Date().toISOString(), // date that it was created
       authorId: user.id,
     }
     setIsSaving(true)
