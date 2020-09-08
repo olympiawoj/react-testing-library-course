@@ -13,6 +13,9 @@ function Countdown() {
         setRemainingTime(newRemainingTime)
       }
     })
+    // test still passes when we comment this out & DO NOT CLEAN UP
+    // this is why it's important you make sure you can break your test
+    // it takes so long for 10 sec to happen that our test finishes and everything goes away before Jest notices there's a prooblem
     return () => clearInterval(interval)
   }, [])
   return remainingTime
