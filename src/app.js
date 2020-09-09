@@ -143,6 +143,8 @@ function Error({
   )
 }
 
+// App uses react router to render out diff pages
+// also manages multi page form provider with initial values food and drink, empty strings
 function App() {
   return (
     <MultiPageFormProvider initialValues={{food: '', drink: ''}}>
