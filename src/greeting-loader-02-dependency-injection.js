@@ -1,6 +1,8 @@
 import React from 'react'
+// import {loadGreeting} from './api'
 import * as api from './api'
 
+//loadGreeting is from props
 function GreetingLoader({loadGreeting = api.loadGreeting}) {
   const [greeting, setGreeting] = React.useState('')
   async function loadGreetingForInput(e) {

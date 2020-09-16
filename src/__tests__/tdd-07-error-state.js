@@ -57,11 +57,15 @@ test('renders a form with title, content, tags, and a submit button', async () =
   await wait(() => expect(MockRedirect).toHaveBeenCalledWith({to: '/'}, {}))
 })
 
+// NEW TEST for - Test Drive Error State with React Testing Library
+// I know it's an async test bc we'll wait for reject from promise
 test('renders an error message from the server', async () => {
   const testError = 'test error'
-  mockSavePost.mockRejectedValueOnce({data: {error: testError}})
+  mockSavePost.mockRejectedValueOnce({data: {error: testError}}) // mock REJECTED VALUE
   const fakeUser = userBuilder()
-  const {getByText, findByRole} = render(<Editor user={fakeUser} />)
+  const {getByText, findByRole} = render(<Editor user={fakeUser} />) // render Editor
+  // const fakePost = postBuilder()
+
   const submitButton = getByText(/submit/i)
 
   fireEvent.click(submitButton)

@@ -16,9 +16,11 @@ afterEach(() => {
   jest.clearAllMocks()
 })
 
+// postBuilder uses build('Post') and here are the fields on my post
+// fake is another library, faker, where we use random words/paragraphs/tags
 const postBuilder = build('Post').fields({
   title: fake(f => f.lorem.words()),
-  content: fake(f => f.lorem.paragraphs().replace(/\r/g, '')),
+  content: fake(f => f.lorem.paragraphs().replace(/\r/g, '')), // removes newlines, replacing with empty string
   tags: fake(f => [f.lorem.word(), f.lorem.word(), f.lorem.word()]),
 })
 

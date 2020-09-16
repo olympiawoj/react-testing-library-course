@@ -3,9 +3,10 @@ import {savePost} from './api'
 
 function Editor({user}) {
   const [isSaving, setIsSaving] = React.useState(false)
+
   function handleSubmit(e) {
-    e.preventDefault()
-    const {title, content, tags} = e.target.elements
+    e.preventDefault() // prevent full page refresh
+    const {title, content, tags} = e.target.elements // elements has props for all elements by name
     const newPost = {
       title: title.value,
       content: content.value,

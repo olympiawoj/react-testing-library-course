@@ -43,8 +43,12 @@ test('renders a form with title, content, tags, and a submit button', async () =
   })
   expect(mockSavePost).toHaveBeenCalledTimes(1)
 
-  const postDate = new Date().getTime()
+  const postDate = new Date().getTime() // is the date between pre and post date?
+  // calls property - each record is an array of args it was called with
+  // it was called with 1 argument [0][0].date gives us the date
+  // new Date converst from ISOString to date
   const date = new Date(mockSavePost.mock.calls[0][0].date).getTime()
+  // inbetween preDate and postDate
   expect(date).toBeGreaterThanOrEqual(preDate)
   expect(date).toBeLessThanOrEqual(postDate)
 

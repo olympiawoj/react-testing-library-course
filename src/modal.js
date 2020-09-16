@@ -18,6 +18,7 @@ function Modal({children}) {
     modalRoot.appendChild(currentEl)
     return () => modalRoot.removeChild(currentEl)
   }, [])
+  // uses ReactDOM.createPortal to render the children into that element
   return ReactDOM.createPortal(children, el.current)
 }
 

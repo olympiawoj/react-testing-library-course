@@ -15,7 +15,7 @@ function Editor({user}) {
       authorId: user.id,
     }
     setIsSaving(true)
-    savePost(newPost).then(() => setRedirect(true))
+    savePost(newPost).then(() => setRedirect(true)) // savePost is an asynchronous call - when it resolves, we set redirect to true, triggers re render, but because it's asynchronous, we cant make our Redirect assertion, we have to wait for it to be called
   }
   if (redirect) {
     return <Redirect to="/" />

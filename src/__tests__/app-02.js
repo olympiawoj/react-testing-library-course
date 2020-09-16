@@ -1,36 +1,81 @@
+// import React from 'react'
+// import {render, fireEvent} from '@testing-library/react'
+// import {submitForm as mockSubmitForm} from '../api'
+// import App from '../app'
+
+// jest.mock('../api')
+
+// test('Can fill out a form across multiple pages', async () => {
+//   mockSubmitForm.mockResolvedValueOnce({success: true})
+//   const testData = {food: 'test food', drink: 'test drink'}
+//   const {findByLabelText, findByText} = render(<App />)
+
+//   fireEvent.click(await findByText(/fill.*form/i))
+
+//   fireEvent.change(await findByLabelText(/food/i), {
+//     target: {value: testData.food},
+//   })
+//   fireEvent.click(await findByText(/next/i))
+
+//   fireEvent.change(await findByLabelText(/drink/i), {
+//     target: {value: testData.drink},
+//   })
+//   fireEvent.click(await findByText(/review/i))
+
+//   expect(await findByLabelText(/food/i)).toHaveTextContent(testData.food)
+//   expect(await findByLabelText(/drink/i)).toHaveTextContent(testData.drink)
+
+//   fireEvent.click(await findByText(/confirm/i, {selector: 'button'}))
+
+//   expect(mockSubmitForm).toHaveBeenCalledWith(testData)
+//   expect(mockSubmitForm).toHaveBeenCalledTimes(1)
+
+//   fireEvent.click(await findByText(/home/i))
+
+//   expect(await findByText(/welcome home/i)).toBeInTheDocument()
+// })
+
 import React from 'react'
 import {render, fireEvent} from '@testing-library/react'
 import {submitForm as mockSubmitForm} from '../api'
 import App from '../app'
 
+// mock our API so we don't make real HTTP calls
 jest.mock('../api')
+
+// findBy is asynchronous
 
 test('Can fill out a form across multiple pages', async () => {
   mockSubmitForm.mockResolvedValueOnce({success: true})
   const testData = {food: 'test food', drink: 'test drink'}
-  const {findByLabelText, findByText} = render(<App />)
+  const {findByLabelText, findByText, debug} = render(<App />)
 
+  // click on fill out form
   fireEvent.click(await findByText(/fill.*form/i))
-
   fireEvent.change(await findByLabelText(/food/i), {
     target: {value: testData.food},
   })
-  fireEvent.click(await findByText(/next/i))
 
+  // move to next page
+  fireEvent.click(await findByText(/next/i))
   fireEvent.change(await findByLabelText(/drink/i), {
     target: {value: testData.drink},
   })
-  fireEvent.click(await findByText(/review/i))
 
+  fireEvent.click(await findByText(/review/i))
   expect(await findByLabelText(/food/i)).toHaveTextContent(testData.food)
   expect(await findByLabelText(/drink/i)).toHaveTextContent(testData.drink)
 
-  fireEvent.click(await findByText(/confirm/i, {selector: 'button'}))
-
+  fireEvent.click(await findByText(/confirm/i, {selector: 'button'})) // multiple elements with confirm, showing up in h2 as well as button
+  // scope await findByText to elements with css selector button
   expect(mockSubmitForm).toHaveBeenCalledWith(testData)
   expect(mockSubmitForm).toHaveBeenCalledTimes(1)
-
+  // asynchronous waiting for Homepage link to show up
+  // after mock request has been made, we get congrats you did it
+  // await it to go home
   fireEvent.click(await findByText(/home/i))
 
   expect(await findByText(/welcome home/i)).toBeInTheDocument()
+
+  debug()
 })

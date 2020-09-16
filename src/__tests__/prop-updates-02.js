@@ -1,6 +1,6 @@
 import React from 'react'
-import user from '@testing-library/user-event'
 import {render} from '@testing-library/react'
+import user from '@testing-library/user-event'
 import {FavoriteNumber} from '../favorite-number'
 
 test('entering an invalid value shows an error message', () => {
@@ -12,4 +12,6 @@ test('entering an invalid value shows an error message', () => {
   expect(getByRole('alert')).toHaveTextContent(/the number is invalid/i)
   rerender(<FavoriteNumber max={10} />)
   expect(queryByRole('alert')).toBeNull()
+  // verify an element is NOT being rendered by using a query that
+  // is prefixed by query like queryByRole rather than one that is prefixed by get
 })
